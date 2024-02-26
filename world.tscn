@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://ctxlnbfl4wr5l"]
+
+[ext_resource type="Texture2D" uid="uid://b40ykwmg7qc6g" path="res://assets/background.png" id="1_pblry"]
+[ext_resource type="Script" path="res://world.gd" id="1_qgfw2"]
+[ext_resource type="PackedScene" uid="uid://l7r4ly4l6arr" path="res://balloon.tscn" id="2_w1q1m"]
+[ext_resource type="PackedScene" uid="uid://c6e01mhv46j8w" path="res://saw_blade_telegraph.tscn" id="3_74qvl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yvd8u"]
+size = Vector2(48, 201)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7q64y"]
+size = Vector2(348, 30)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pk2g8"]
+line_spacing = 0.0
+font_size = 8
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_qgfw2")
+
+[node name="BackgroundSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_pblry")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_mask = 0
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(24, 90.5)
+shape = SubResource("RectangleShape2D_yvd8u")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(296, 93)
+shape = SubResource("RectangleShape2D_yvd8u")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+position = Vector2(160, -13)
+shape = SubResource("RectangleShape2D_7q64y")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
+position = Vector2(160, 193)
+shape = SubResource("RectangleShape2D_7q64y")
+
+[node name="Balloon" parent="." instance=ExtResource("2_w1q1m")]
+position = Vector2(160, 88)
+
+[node name="SawBladeTelegraph" parent="." instance=ExtResource("3_74qvl")]
+position = Vector2(112, 128)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="SpawnZone" type="ColorRect" parent="."]
+offset_left = 64.0
+offset_top = 16.0
+offset_right = 256.0
+offset_bottom = 160.0
+color = Color(1, 0, 0, 0.0941176)
+
+[node name="SawCountLabel" type="Label" parent="."]
+offset_right = 48.0
+offset_bottom = 32.0
+text = "Blades
+0"
+label_settings = SubResource("LabelSettings_pk2g8")
+horizontal_alignment = 1
+vertical_alignment = 1
